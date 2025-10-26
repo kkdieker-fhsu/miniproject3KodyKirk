@@ -60,8 +60,6 @@ def files():
     if not os.path.exists(upload_path):
         os.mkdir(upload_path)
     files = filetree(upload_path)
-    print(f"File tree returned: {files}")
-    print(current_app.root_path)
     return render_template('pages/files.html', files=files)
 
 def filetree(fullpath, shortpath=""):

@@ -31,6 +31,12 @@
   {% endmacro %}
 
   <div>
-    {{ render_tree(files) }}
+    {% if files %}
+      {{ render_tree(files) }}
+    {% else %}
+      <p class="text-body-secondary">
+        There are no files in the uploads directory yet.
+      </p>
+    {% endif %}
   </div>
 {% endblock %}
