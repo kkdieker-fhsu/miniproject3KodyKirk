@@ -15,11 +15,11 @@ This is a webpage built using Flask and Bootstrap that I thought would be fun to
 
 ### Installing
  
-Download the files from this repository. In a terminal, navigate to the downloaded folder.
+* Download the files from this repository.
 
-#### Downloading Dependencies
+### Downloading Dependencies
  
-Package requirements are in the requirements.txt file. To install, run:
+* Package requirements are in the requirements.txt file. To install, run:
 ```
 pip install -r requirements.txt
 ``` 
