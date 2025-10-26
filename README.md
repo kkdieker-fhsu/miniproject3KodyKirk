@@ -5,7 +5,7 @@
  
 # Project Title
  
-Mini project 3: webpages in Flask
+Mini project 3: Webpages in Flask
 
 ## Description
  
