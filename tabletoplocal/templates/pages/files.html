@@ -9,15 +9,46 @@
 
 {% block content %}
 
+  <style>
+    .toggle-icon {
+      transition: transform 0.2s ease-in-out;
+      display: inline-block;
+      width: 1em;
+      font-size: 0.8em;
+    }
+    a[aria-expanded="true"] .toggle-icon {
+      transform: rotate(90deg);
+    }
+    .tree-toggle {
+      text-decoration: none;
+      color: inherit;
+    }
+    .tree-toggle:hover {
+      text-decoration: underline;
+    }
+  </style>
+
   {% macro render_tree(nodes) %}
     <ul>
       {% for node in nodes %}
         <li>
           {% if node.type == 'dir' %}
-            <strong>{{ node.name }}</strong>
 
             {% if node.children %}
-              {{ render_tree(node.children) }}
+              {% set collapse_id = "dir-" + (node.path | replace('/', '-') | replace('.', '-') | replace(' ', '-')) %}
+
+              <a class="tree-toggle" data-bs-toggle="collapse" href="#{{ collapse_id }}" role="button" aria-expanded="false" aria-controls="{{ collapse_id }}">
+                <span class="toggle-icon">►</span>
+                <strong>{{ node.name }}</strong>
+              </a>
+
+              <div class="collapse" id="{{ collapse_id }}">
+                {{ render_tree(node.children) }}
+              </div>
+
+            {% else %}
+              <span class="toggle-icon"></span>
+              <strong>{{ node.name }}</strong> <em>(empty)</em>
             {% endif %}
 
           {% else %}
@@ -29,6 +60,7 @@
       {% endfor %}
     </ul>
   {% endmacro %}
+
 
   <div>
     {% if files %}

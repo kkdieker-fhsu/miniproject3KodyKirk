@@ -76,7 +76,7 @@ def filetree(fullpath, shortpath=""):
             new_shortpath = os.path.join(shortpath,item)
 
             if os.path.isdir(path):
-                tree.append({"name": item, "type": "dir", "children": filetree(path, new_shortpath)})
+                tree.append({"name": item, "type": "dir", "path": new_shortpath, "children": filetree(path, new_shortpath)})
 
             else:
                 tree.append({"name": item, "type": "file", "path": new_shortpath})
