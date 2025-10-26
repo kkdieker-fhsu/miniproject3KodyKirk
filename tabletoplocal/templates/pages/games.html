@@ -6,3 +6,16 @@
 
   </div>
 {% endblock %}
+
+{% block content %}
+{% if games == 1 %}
+<H4>We currently have {{games}} server running.</H4>
+{% else %}
+<H4>We currently have {{games}} servers running.</H4>
+{% endif %}
+
+{% if role == 'admin' %}
+<H4>You can create a new server by clicking the button below.</H4>
+{% endif %}
+
+{% endblock %}

@@ -66,10 +66,35 @@ def get_post(id, check_author=True):
 def files():
     return render_template('pages/files.html')
 
-@bp.route('/games')
+@bp.route('/games', methods=('GET','POST'))
 @login_required
 def games():
-    return render_template('pages/games.html')
+    if request.method == 'POST':
+        title = request.form['title']
+        link = request.form['link']
+        host = request.form['host']
+        error = None
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'INSERT INTO tables (name, link, host)'
+                ' VALUES (?, ?, ?)',
+                (title, link, host)
+            )
+            db.commit()
+            return redirect(url_for('pages.games'))
+
+    return render_template('pages/games.html', games=get_games(), role=g.user['role'])
+
+def get_games():
+    games = get_db().execute(
+        'SELECT COUNT(*) FROM tables'
+    ).fetchone()[0]
+    return games
+
 
 @bp.route('/resources')
 @login_required

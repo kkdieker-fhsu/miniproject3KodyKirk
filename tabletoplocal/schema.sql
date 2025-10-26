@@ -5,7 +5,8 @@ CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  color TEXT NOT NULL
+  color TEXT NOT NULL,
+  role TEXT NOT NULL DEFAULT 'user'
 );
 
 CREATE TABLE post (
@@ -15,3 +16,10 @@ CREATE TABLE post (
   body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );
+
+CREATE TABLE tables (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  link TEXT NOT NULL,
+  host TEXT NOT NULL
+)
