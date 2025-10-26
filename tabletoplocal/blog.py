@@ -3,14 +3,14 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+from tabletoplocal.auth import login_required
+from tabletoplocal.db import get_db
 
 bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def landing():
-    return render_template('blog/landing.html', posts=chat)
+    return render_template('blog/landing.html')
 
 @bp.route('/chat')
 @login_required
@@ -19,33 +19,29 @@ def chat():
     chats = db.execute(
         'SELECT p.id, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+        ' ORDER BY created ASC'
         ' LIMIT 100'
     ).fetchall()
-    return render_template('blog/chat.html')
+    return render_template('blog/chat.html', chats=chats)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
     if request.method == 'POST':
-        title = request.form['title']
         body = request.form['body']
         error = None
-
-        if not title:
-            error = 'Title is required.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+                'INSERT INTO post (body, author_id)'
+                ' VALUES (?, ?)',
+                (body, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('blog.landing'))
+            return redirect(url_for('blog.chat'))
 
     return render_template('blog/create.html')
 
@@ -90,7 +86,7 @@ def update(id):
             db.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('blog/update.html', post=post)
+    return render_template('blog/update.html', chat=chat)
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
