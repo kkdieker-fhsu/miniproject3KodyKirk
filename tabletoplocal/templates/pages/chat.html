@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block header %}
+  <h1>{% block title %}Chat{% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
   <div id="chat-window" class="border rounded p-3 overflow-y-auto d-flex flex-column-reverse" style="max-height: 60vh;">
 
@@ -40,7 +44,7 @@
     </div>
   </div>
 
-  <form method="post" action="{{ url_for('blog.create') }}" class="mt-4">
+  <form method="post" action="{{ url_for('pages.create') }}" class="mt-4">
     <div class="input-group">
       <input type="text" name="body" class="form-control" placeholder="Type your message..." aria-label="Type your message" required>
       <button class="btn btn-primary" type="submit">Send</button>

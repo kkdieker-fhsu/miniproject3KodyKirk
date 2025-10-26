@@ -46,8 +46,8 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-    from . import blog
-    app.register_blueprint(blog.bp)
+    from . import pages
+    app.register_blueprint(pages.bp)
     app.add_url_rule('/', endpoint='landing')
 
     return app

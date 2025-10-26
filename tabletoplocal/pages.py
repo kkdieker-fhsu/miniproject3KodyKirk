@@ -6,11 +6,11 @@ from werkzeug.exceptions import abort
 from tabletoplocal.auth import login_required
 from tabletoplocal.db import get_db
 
-bp = Blueprint('blog', __name__)
+bp = Blueprint('pages', __name__)
 
 @bp.route('/')
 def landing():
-    return render_template('blog/landing.html')
+    return render_template('pages/landing.html')
 
 @bp.route('/chat')
 @login_required
@@ -22,7 +22,7 @@ def chat():
         ' ORDER BY created ASC'
         ' LIMIT 100'
     ).fetchall()
-    return render_template('blog/chat.html', chats=chats)
+    return render_template('pages/chat.html', chats=chats)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -41,9 +41,9 @@ def create():
                 (body, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('blog.chat'))
+            return redirect(url_for('pages.chat'))
 
-    return render_template('blog/create.html')
+    return render_template('pages/create.html')
 
 def get_post(id, check_author=True):
     post = get_db().execute(
@@ -84,9 +84,9 @@ def update(id):
                 (title, body, id)
             )
             db.commit()
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('pages.landing'))
 
-    return render_template('blog/update.html', chat=chat)
+    return render_template('pages/update.html', chat=chat)
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
@@ -95,4 +95,9 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('blog.landing'))
+    return redirect(url_for('pages.landing'))
+
+@bp.route('/files')
+@login_required
+def files():
+    return render_template('pages/files.html')
