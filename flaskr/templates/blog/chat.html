@@ -10,13 +10,13 @@
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
+  {% for chat in chats %}
     <article class="post card mb-4 shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h2 class="card-title h5 mb-0">{{ post['title'] }}</h2>
+          <h2 class="card-title h5 mb-0">{{ chat['title'] }}</h2>
           <div class="card-subtitle text-body-secondary small fst-italic">
-            by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}
+            by {{ chat['username'] }} on {{ chat['created'].strftime('%Y-%m-%d') }}
           </div>
         </div>
         {% if g.user['id'] == post['author_id'] %}
@@ -25,7 +25,7 @@
       </div>
 
       <div class="card-body">
-        <p class="body card-text">{{ post['body'] }}</p>
+        <p class="body card-text">{{ chat['body'] }}</p>
       </div>
     </article>
 

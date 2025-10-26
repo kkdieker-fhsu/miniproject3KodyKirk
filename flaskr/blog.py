@@ -9,14 +9,20 @@ from flaskr.db import get_db
 bp = Blueprint('blog', __name__)
 
 @bp.route('/')
-def index():
+def landing():
+    return render_template('blog/landing.html', posts=chat)
+
+@bp.route('/chat')
+@login_required
+def chat():
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+    chats = db.execute(
+        'SELECT p.id, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
+        ' LIMIT 100'
     ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+    return render_template('blog/chat.html')
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -39,7 +45,7 @@ def create():
                 (title, body, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('blog.landing'))
 
     return render_template('blog/create.html')
 
@@ -93,4 +99,4 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('blog.index'))
+    return redirect(url_for('blog.landing'))
