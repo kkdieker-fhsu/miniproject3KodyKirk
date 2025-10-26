@@ -65,10 +65,16 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('pages.files') }}">Files</a>
         </li>
-        {% endif %}
+
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">About (TBD)</a>
+          <a class="nav-link " href="{{ url_for('pages.games') }}">Games</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link " href="{{ url_for('pages.resources') }}">Resources</a>
+        </li>
+
+        {% endif %}
       </ul>
     </div>
   </div>

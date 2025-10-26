@@ -65,3 +65,13 @@ def get_post(id, check_author=True):
 @login_required
 def files():
     return render_template('pages/files.html')
+
+@bp.route('/games')
+@login_required
+def games():
+    return render_template('pages/games.html')
+
+@bp.route('/resources')
+@login_required
+def resources():
+    return render_template('pages/resources.html')
