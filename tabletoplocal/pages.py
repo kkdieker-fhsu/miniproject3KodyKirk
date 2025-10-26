@@ -88,7 +88,7 @@ def games():
             db.commit()
             return redirect(url_for('pages.games'))
 
-    return render_template('pages/games.html', games=get_games(), role=g.user['role'], servers=servers)
+    return render_template('pages/games.html', games=get_games(), role=g.user['role'], servers=active_servers())
 
 def get_games():
     games = get_db().execute(

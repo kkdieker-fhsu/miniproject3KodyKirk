@@ -13,6 +13,23 @@
     <h4>We currently have {{games}} servers running.</h4>
   {% endif %}
 
+  <div class="list-group my-4">
+    {% for server in servers %}
+      <a href="{{ server['link'] }}" class="list-group-item list-group-item-action" target="_blank" rel="noopener noreferrer">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ server['name'] }}</h5>
+          <small class="text-body-secondary">Host: {{ server['host'] }}</small>
+        </div>
+        <p class="mb-1">System: {{ server['system'] }}</p>
+        <small class="text-body-secondary">{{ server['link'] }}</small>
+      </a>
+    {% else %}
+      <div class="list-group-item">
+        <p class="mb-1 text-body-secondary">There are no active servers listed yet.</p>
+      </div>
+    {% endfor %}
+  </div>
+
   {% if role == 'admin' %}
     <h4 class="mb-3">You can create a new server by clicking the button below.</h4>
 
