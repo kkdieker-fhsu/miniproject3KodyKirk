@@ -56,11 +56,11 @@ def create():
 @bp.route('/files')
 @login_required
 def files():
-    if not os.path.exists('uploads'):
-        os.mkdir('uploads')
-    upload_path = 'uploads'
+    upload_path = os.path.join(current_app.root_path, 'asdf')
+    if not os.path.exists(upload_path):
+        os.mkdir(upload_path)
     files = filetree(upload_path)
-
+    print(f"File tree returned: {files}")
     return render_template('pages/files.html', files=files)
 
 def filetree(fullpath, shortpath=""):
@@ -90,7 +90,7 @@ def filetree(fullpath, shortpath=""):
 @bp.route('/download/<path:filename>')
 @login_required
 def download(filename):
-    folder = os.path.join(current_app.root_path,'uploads')
+    folder = os.path.join(current_app.root_path,'asdf')
     try:
         return flask.send_from_directory(folder, filename, as_attachment=True)
 
