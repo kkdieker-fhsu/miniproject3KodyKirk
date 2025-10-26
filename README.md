@@ -17,7 +17,7 @@ This is a webpage built using Flask and Bootstrap that I thought would be fun to
  
 Download the files from this repository. In a terminal, navigate to the downloaded folder.
 
-## Downloading Dependencies
+#### Downloading Dependencies
  
 Package requirements are in the requirements.txt file. To install, run:
 ```
