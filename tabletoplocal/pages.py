@@ -4,6 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
+from werkzeug.utils import send_from_directory
 
 from tabletoplocal.auth import login_required
 from tabletoplocal.db import get_db
@@ -68,6 +69,16 @@ def filetree(fullpath):
             path = os.path.join(root, name)
             tree.append(path)
     return tree
+
+@bp.route('/uploads/<path:filename>')
+@login_required
+def download(filename):
+    folder = 'uploads'
+    try:
+        return send_from_directory(folder, filename)
+
+    except FileNotFoundError:
+        abort(404)
 
 #the games page and associated functions
 @bp.route('/games', methods=('GET','POST'))
