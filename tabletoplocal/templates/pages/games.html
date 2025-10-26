@@ -3,19 +3,64 @@
 {% block header %}
   <div class="d-flex justify-content-between align-items-center">
     <h1 class="m-0">{% block title %}Games{% endblock %}</h1>
-
   </div>
 {% endblock %}
 
 {% block content %}
-{% if games == 1 %}
-<H4>We currently have {{games}} server running.</H4>
-{% else %}
-<H4>We currently have {{games}} servers running.</H4>
-{% endif %}
+  {% if games == 1 %}
+    <h4>We currently have {{games}} server running.</h4>
+  {% else %}
+    <h4>We currently have {{games}} servers running.</h4>
+  {% endif %}
 
-{% if role == 'admin' %}
-<H4>You can create a new server by clicking the button below.</H4>
-{% endif %}
+  {% if role == 'admin' %}
+    <h4 class="mb-3">You can create a new server by clicking the button below.</h4>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createServerModal">
+      Create New Server
+    </button>
+  {% endif %}
+
+  <div class="modal fade" id="createServerModal" tabindex="-1" aria-labelledby="serverModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="serverModalLabel">Create New Server</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="server-form" method="post" action="">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" name="title" id="title" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="link" class="form-label">Link</label>
+              <input type="url" name="link" id="link" class="form-control" placeholder="https://example.com" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="host" class="form-label">Host</label>
+              <input type="text" name="host" id="host" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="system" class="form-label">System</label>
+              <input type="text" name="system" id="system" class="form-control" required>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" form="server-form">Save Server</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

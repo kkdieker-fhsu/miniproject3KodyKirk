@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS tables;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,5 +22,9 @@ CREATE TABLE tables (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   link TEXT NOT NULL,
-  host TEXT NOT NULL
-)
+  host TEXT NOT NULL,
+  system TEXT NOT NULL
+);
+
+INSERT INTO user (username, password, color, role)
+VALUES ('admin', 'scrypt:32768:8:1$qyYfdDvw7eH19VVL$e954573f662a682a6ab4e88ee186db57d269bb5e49fdd6b5fc4ab3d39ae4e3c7f32e6ca94492987cc468efc4fe0884ac11433db937f8915f0e81b11e125c69c7', '#FF0000', 'admin');

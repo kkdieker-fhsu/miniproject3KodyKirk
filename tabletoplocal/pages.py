@@ -73,6 +73,7 @@ def games():
         title = request.form['title']
         link = request.form['link']
         host = request.form['host']
+        system = request.form['system']
         error = None
 
         if error is not None:
@@ -80,14 +81,14 @@ def games():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO tables (name, link, host)'
-                ' VALUES (?, ?, ?)',
-                (title, link, host)
+                'INSERT INTO tables (name, link, host, system)'
+                ' VALUES (?, ?, ?, ?)',
+                (title, link, host, system)
             )
             db.commit()
             return redirect(url_for('pages.games'))
 
-    return render_template('pages/games.html', games=get_games(), role=g.user['role'])
+    return render_template('pages/games.html', games=get_games(), role=g.user['role'], servers=servers)
 
 def get_games():
     games = get_db().execute(
@@ -95,6 +96,11 @@ def get_games():
     ).fetchone()[0]
     return games
 
+def active_servers():
+    servers = get_db().execute(
+        'SELECT * FROM tables'
+    ).fetchall()
+    return servers
 
 @bp.route('/resources')
 @login_required
