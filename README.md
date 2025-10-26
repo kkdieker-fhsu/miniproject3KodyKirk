@@ -12,30 +12,29 @@ Mini project 3: Webpages in Flask
 This is a webpage built using Flask and Bootstrap that I thought would be fun to build out for my tabletop gaming server to have a single place for getting files, links, etc.
 
 ## Getting Started
+
+### Installing
  
-### Dependencies
+Download the files from this repository. In a terminal, navigate to the downloaded folder.
+
+## Downloading Dependencies
  
 Package requirements are in the requirements.txt file. To install, run:
 ```
 pip install -r requirements.txt
-```
-### Installing
- 
-Download the files from this repository. In a terminal, navigate to the downloaded folder.
- 
+``` 
 ### Executing program
 
-In the folder from the command line:
-
-* Initialize the SQL database
+* First, initialize the SQL database by running:
 ```
 flask --app tabletoplocal init-db
 ```
-* Run the webserver
+* Then start the webserver:
 ```
 flask --app tabletoplocal run
 ```
- 
+The webpage will then be accessible at http://127.0.0.1:5000
+
 ## Authors
  
 Kody Kirk
