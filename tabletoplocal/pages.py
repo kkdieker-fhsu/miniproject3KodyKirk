@@ -1,7 +1,7 @@
 import os
-
+import flask
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 
 from werkzeug.exceptions import abort
@@ -90,9 +90,9 @@ def filetree(fullpath, shortpath=""):
 @bp.route('/download/<path:filename>')
 @login_required
 def download(filename):
-    folder = 'uploads'
+    folder = os.path.join(current_app.root_path,'uploads')
     try:
-        return send_from_directory(folder, filename)
+        return flask.send_from_directory(folder, filename, as_attachment=True)
 
     except FileNotFoundError:
         abort(404)
