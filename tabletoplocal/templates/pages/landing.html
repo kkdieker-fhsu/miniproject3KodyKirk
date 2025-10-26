@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
 
 {% block header %}
+  <!-- This header is now simple, as the Jumbotron below is the main focus -->
   <div class="d-flex justify-content-between align-items-center">
     <h1 class="m-0">{% block title %}Home{% endblock %}</h1>
-
   </div>
 {% endblock %}
 
 {% block content %}
 
-<h4>Welcome to Tabletop Local!</h4>
-<p>If you haven't already done so, register an account or log in to get access to resources. The menu on the left contains navigation to the rest of the site.</p>
+  <div class="p-5 mb-4 bg-body-tertiary rounded-3 shadow-sm">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Welcome to Tabletop Local</h1>
+
+      {% if g.user %}
+        <p class="fs-5">Welcome, {{ g.user['username'] }}.</p>
+        <a href="{{ url_for('pages.chat') }}" class="btn btn-primary btn-lg">Go to Chat</a>
+      {% else %}
+        <p class="fs-5">Register an account or log in to get started.</p>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">Register</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary btn-lg">Log In</a>
+      {% endif %}
+    </div>
+  </div>
+
 
 {% endblock %}
