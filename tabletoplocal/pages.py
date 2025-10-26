@@ -3,6 +3,7 @@ import os
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
+
 from werkzeug.exceptions import abort
 from werkzeug.utils import send_from_directory
 
@@ -58,19 +59,35 @@ def files():
     if not os.path.exists('uploads'):
         os.mkdir('uploads')
     upload_path = 'uploads'
-    filetree = filetree(upload_path)
+    files = filetree(upload_path)
 
-    return render_template('pages/files.html', filetree=filetree)
+    return render_template('pages/files.html', files=files)
 
-def filetree(fullpath):
+def filetree(fullpath, shortpath=""):
     tree = []
-    for root, dirs, files in os.walk(fullpath):
-        for name in sorted(files):
-            path = os.path.join(root, name)
-            tree.append(path)
+    # for root, dirs, files in os.walk(fullpath):
+    #     for name in sorted(files):
+    #         path = os.path.join(root, name)
+    #         tree.append(path)
+    # return tree
+
+    try:
+        for item in sorted(os.listdir(fullpath)):
+            path = os.path.join(fullpath, item)
+            new_shortpath = os.path.join(shortpath,item)
+
+            if os.path.isdir(path):
+                tree.append({"name": item, "type": "dir", "children": filetree(path, new_shortpath)})
+
+            else:
+                tree.append({"name": item, "type": "file", "path": new_shortpath})
+
+    except FileNotFoundError:
+        return []
+
     return tree
 
-@bp.route('/uploads/<path:filename>')
+@bp.route('/download/<path:filename>')
 @login_required
 def download(filename):
     folder = 'uploads'

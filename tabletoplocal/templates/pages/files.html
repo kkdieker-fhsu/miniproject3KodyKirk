@@ -1,8 +1,36 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items.center">
     <h1 class="m-0">{% block title %}Files{% endblock %}</h1>
 
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  {% macro render_tree(nodes) %}
+    <ul>
+      {% for node in nodes %}
+        <li>
+          {% if node.type == 'dir' %}
+            <strong>{{ node.name }}</strong>
+
+            {% if node.children %}
+              {{ render_tree(node.children) }}
+            {% endif %}
+
+          {% else %}
+            <a href="{{ url_for('pages.download', filename=node.path) }}">
+              {{ node.name }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endmacro %}
+
+  <div>
+    {{ render_tree(files) }}
   </div>
 {% endblock %}
