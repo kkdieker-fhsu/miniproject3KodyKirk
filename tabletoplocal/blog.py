@@ -17,7 +17,7 @@ def landing():
 def chat():
     db = get_db()
     chats = db.execute(
-        'SELECT p.id, body, created, author_id, username'
+        'SELECT p.id, body, created, author_id, username, color'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created ASC'
         ' LIMIT 100'

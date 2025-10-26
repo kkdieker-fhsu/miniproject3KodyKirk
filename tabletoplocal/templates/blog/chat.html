@@ -1,21 +1,14 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Chat{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
   <div id="chat-window" class="border rounded p-3 overflow-y-auto d-flex flex-column-reverse" style="max-height: 60vh;">
 
     <div>
       {% for chat in chats %}
         {% if g.user['id'] == chat['author_id'] %}
-          <div class="d-flex justify-content-end mb-3">
+          <div class="d-flex justify-content-end mb-2">
             <div style="max-width: 75%;" class="text-end">
-              <div class="p-3 rounded bg-primary text-white" style="display: inline-block; text-align: left;">
+              <div class="p-2 rounded" style="background-color: {{ chat['color'] }}; color: #000; display: inline-block; text-align: left;">
                 <p class="body m-0">{{ chat['body'] }}</p>
               </div>
               <div class="small text-body-secondary mt-1">
@@ -24,12 +17,12 @@
             </div>
           </div>
           {% else %}
-          <div class="d-flex justify-content-start mb-3">
+          <div class="d-flex justify-content-start mb-2">
             <div style="max-width: 75%;">
               <div class="small text-body-secondary ms-1 mb-1">
                 {{ chat['username'] }}
               </div>
-              <div class="p-3 rounded bg-body-secondary" style="display: inline-block; text-align: left;">
+              <div class="p-2 rounded" style="background-color:{{ chat['color'] }}; color: #000; display: inline-block; text-align: left;">
                 <p class="body m-0">{{ chat['body'] }}</p>
               </div>
               <div class="small text-body-secondary mt-1 ms-1">
