@@ -15,7 +15,7 @@
         <p class="fs-5">Welcome, {{ g.user['username'] }}.</p>
         <a href="{{ url_for('pages.files') }}" class="btn btn-primary btn-lg">View files</a>
       {% else %}
-        <p class="fs-5">Register an account or log in to get started.</p>
+        <p class="fs-5">Register an account or log in.</p>
         <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">Register</a>
         <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary btn-lg">Log In</a>
       {% endif %}
@@ -26,7 +26,7 @@
     <div class="col-md-6 mb-4">
       <div class="h-100 p-5 text-bg-dark rounded-3 shadow">
         <h2>Our Games</h2>
-        <p>Browse our active game servers.</p>
+        <p>Our active game servers.</p>
         <a href="{{ url_for('pages.games') }}" class="btn btn-outline-light">Browse Active Games</a>
       </div>
     </div>
@@ -35,7 +35,7 @@
   <div class="col-md-6 mb-4">
       <div class="h-100 p-5 bg-body-tertiary border rounded-3 shadow">
         <h2>Chat & Resources</h2>
-        <p>Live chat with other users or access links to character builders, rules, and other tools.</p>
+        <p>Live chat or access links to various resources.</p>
         <a href="{{ url_for('pages.chat') }}" class="btn btn-outline-secondary me-2">Go to Chat</a>
         <a href="{{ url_for('pages.resources') }}" class="btn btn-outline-secondary">See Resources</a>
       </div>
@@ -46,7 +46,7 @@
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">How to Navigate</h4>
     <p class="mb-0">
-      You can access all these features and more by clicking the <b>Menu</b> button at the top-left of the screen.
+      The <b>Menu</b> button at the top-left also includes links to the various pages.
     </p>
   </div>
 {% endblock %}
