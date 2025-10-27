@@ -1,3 +1,9 @@
+# INF601 - Advanced Programming in Python
+
+# Kody Kirk
+
+# Mini Project 3
+
 # Please submit a link to your GitHub project. Do not submit your project files here!
 #
 # This project will be using Flask to deploy a small web app of your choice. The goal here is to come up with a small web application that meets the requirements below. If you get stuck here, please email me!
