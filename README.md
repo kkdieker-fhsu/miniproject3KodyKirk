@@ -33,7 +33,11 @@ flask --app tabletoplocal init-db
 ```
 flask --app tabletoplocal run
 ```
-The webpage will then be accessible at http://127.0.0.1:5000
+The webpage will then be accessible at http://127.0.0.1:5000.
+
+At the moment, a hardcoded admin account is set up when the database is initialized. Username and password are both 'admin'. Other user accounts can be created with the 'register' functionality. 
+
+Currently, the only 'admin' functions are to add games to the game list via a button that does not appear unless you are logged in as admin.  
 
 ## Authors
  
